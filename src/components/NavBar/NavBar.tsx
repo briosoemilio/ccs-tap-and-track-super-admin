@@ -1,14 +1,51 @@
 import React from "react";
+import { useAuth } from "../../lib/context/AuthenticatedContext";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
+  const { user, onLogout } = useAuth();
+  console.log({ user });
+  const navigate = useNavigate();
   return (
     <div className="navbar bg-base-300 mb-10">
       <div className="flex-1">
-        <a href="/" className="btn btn-ghost text-xl">CCS Tap And Track</a>
+        <a href="/" className="btn btn-ghost text-xl">
+          CCS Tap And Track
+        </a>
       </div>
-      <div className="flex-none">
-        
-      </div>
+      {user && (
+        <div className="flex-none">
+          <nav>
+            <ul className="menu menu-horizontal px-1 text-white gap-5">
+              <li>
+                <NavLink to="/students" className={"text-white"}>
+                  Students
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/reports" className={"text-white"}>
+                  Reports
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/new-admin" className={"text-white"}>
+                  New Admin
+                </NavLink>
+              </li>
+              <li>
+                <div
+                  onClick={() => {
+                    onLogout();
+                    navigate("/");
+                  }}
+                >
+                  Logout
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      )}
     </div>
   );
 };

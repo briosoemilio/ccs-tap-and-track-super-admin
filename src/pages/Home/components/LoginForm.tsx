@@ -1,6 +1,11 @@
-import React from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import FormTextField from "../../../components/TextField/FormTextField";
+import { login } from "../../../lib/service/auth/login";
+import Loader from "../../../components/Loader/Loader";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../lib/context/AuthenticatedContext";
+import { loginErrHandler } from "../utils";
 
 export type LoginFormData = {
   email: string;
@@ -9,10 +14,23 @@ export type LoginFormData = {
 
 const LoginForm = () => {
   const formMethods = useForm<LoginFormData>();
-  const { handleSubmit } = formMethods;
+  const { handleSubmit, setError } = formMethods;
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { onLogin } = useAuth();
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log("LOGIN PRESSED : ", data.email, data.password);
+  const onSubmit = async (data: LoginFormData) => {
+    setIsLoading(true);
+    try {
+      const res = await login(data);
+      onLogin(res);
+      navigate("/");
+    } catch (err) {
+      loginErrHandler(err, setError);
+      console.log("Error logging in ", err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -64,7 +82,10 @@ const LoginForm = () => {
             </svg>
           }
         />
-        <button onClick={handleSubmit(onSubmit)}>LOGIN</button>
+        <button onClick={handleSubmit(onSubmit)}>
+          {isLoading && <Loader />}
+          LOGIN
+        </button>
       </FormProvider>
     </div>
   );
