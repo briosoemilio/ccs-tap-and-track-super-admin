@@ -5,6 +5,7 @@ import Students from "./pages/Students/Students";
 import Reports from "./pages/Reports/Reports";
 import NewAdmin from "./pages/New Admin/NewAdmin";
 import NotFound from "./pages/NotFound/NotFound";
+import AddStudent from "./pages/Students/AddStudent";
 
 function App() {
   const { user } = useAuth();
@@ -28,6 +29,7 @@ const AuthStack = () => {
     <Routes>
       <Route path="/" element={<Navigate to="/students" replace />} />
       <Route path="/students" element={<Students />} />
+      <Route path="/add-student" element={<AddStudent />} />
       <Route path="/reports" element={<Reports />} />
       <Route path="/new-admin" element={<NewAdmin />} />
 

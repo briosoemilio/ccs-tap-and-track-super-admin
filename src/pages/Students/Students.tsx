@@ -5,6 +5,7 @@ import { useFetchStudents } from "./useFetchStudents";
 import Loader from "../../components/Loader/Loader";
 import { FormProvider, useForm } from "react-hook-form";
 import FormTextField from "../../components/TextField/FormTextField";
+import { NavLink } from "react-router-dom";
 
 const Students = () => {
   const formMethods = useForm<{ identifier: string }>();
@@ -40,8 +41,13 @@ const Students = () => {
 
   return (
     <ScreenContainer>
-      <div>
-        <h1>Students List</h1>
+      <div className="w-full">
+        <div className="flex justify-between">
+          <h1>Students List</h1>
+          <NavLink to="/add-student">
+            <button>CREATE NEW STUDENT</button>
+          </NavLink>
+        </div>
         <FormProvider {...formMethods}>
           <div className="flex items-center">
             <FormTextField
