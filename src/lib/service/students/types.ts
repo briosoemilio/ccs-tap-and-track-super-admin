@@ -56,3 +56,17 @@ export interface RegisterRes {
   message: string;
   data: UserDetails;
 }
+
+export interface UpdateUserReq {
+  email: string;
+  name: string;
+  yearSection: string;
+  idNumber: string;
+  id: number;
+}
+
+export interface UpdateUserRes {
+  statusCode: number;
+  message: string;
+  data: UserDetails;
+}
