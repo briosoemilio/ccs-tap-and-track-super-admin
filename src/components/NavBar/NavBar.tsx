@@ -21,11 +21,11 @@ const NavBar = () => {
                   Students
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink to="/reports" className={"text-white"}>
                   Reports
                 </NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink to="/new-admin" className={"text-white"}>
                   New Admin
