@@ -41,3 +41,18 @@ export interface ChangePasswordRes {
   message: string;
   data: UserDetails;
 }
+
+export interface CreateUserReq {
+  email: string;
+  password?: string;
+  name: string;
+  role: string;
+  yearSection: string;
+  idNumber: string;
+}
+
+export interface RegisterRes {
+  statusCode: number;
+  message: string;
+  data: UserDetails;
+}
