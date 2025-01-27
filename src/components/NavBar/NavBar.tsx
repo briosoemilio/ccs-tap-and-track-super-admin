@@ -4,7 +4,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 const NavBar = () => {
   const { user, onLogout } = useAuth();
-  console.log({ user });
   const navigate = useNavigate();
   return (
     <div className="navbar bg-base-300 mb-10">
