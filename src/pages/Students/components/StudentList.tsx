@@ -48,6 +48,7 @@ const StudentList = (props: {
             <tr>
               <th></th>
               <th>UUID</th>
+              <th>Email</th>
               <th>Name</th>
               <th>YearSection</th>
               <th>ID Number</th>
@@ -66,6 +67,7 @@ const StudentList = (props: {
               >
                 <th>{index + 1}</th>
                 <th>{student?.uuid}</th>
+                <th>{student?.email}</th>
                 <td>{student?.name}</td>
                 <td>{student?.yearSection}</td>
                 <td>{student?.idNumber}</td>
