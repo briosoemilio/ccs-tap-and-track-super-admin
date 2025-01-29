@@ -56,7 +56,7 @@ const AddStudentModal = () => {
   return (
     <dialog id="add_student" className="modal">
       <div className="modal-box">
-        <h3 className="font-bold text-lg">Update Student Details</h3>
+        <h3 className="font-bold text-lg">Student Details</h3>
         <FormProvider {...formMethods}>
           <FormTextField
             name={"name"}

@@ -8,6 +8,7 @@ import EditSuccessModal from "./components/EditSuccessModal";
 import ResetPWModal from "./components/ResetPWModal";
 import { UserDetails } from "../../lib/service/students/types";
 import { getStudent } from "../../lib/service/students/getStudent";
+import CreateAdminModal from "./components/CreateAdminModal";
 
 const Admin = () => {
   const { user } = useAuth();
@@ -46,7 +47,13 @@ const Admin = () => {
         <div className="flex justify-between my-10">
           <h1>Admin List</h1>
           <div className="flex gap-5">
-            <button>Create Admin Account</button>
+            <button
+              onClick={() => {
+                document?.getElementById("add_admin")?.showModal?.();
+              }}
+            >
+              Create Admin Account
+            </button>
             <button onClick={onClickEdit}>Edit Account</button>
             <button onClick={onClickReset} className="bg-red-600">
               RESET PASSWORD
@@ -72,6 +79,7 @@ const Admin = () => {
         adminIdentifier={selectedAdmin?.uuid as string}
         showNote={showNote}
       />
+      <CreateAdminModal />
     </ScreenContainer>
   );
 };
