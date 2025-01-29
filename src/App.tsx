@@ -29,9 +29,8 @@ const AuthStack = () => {
     <Routes>
       <Route path="/" element={<Navigate to="/students" replace />} />
       <Route path="/students" element={<Students />} />
-      <Route path="/add-student" element={<AddStudent />} />
       <Route path="/reports" element={<Reports />} />
-      <Route path="/new-admin" element={<NewAdmin />} />
+      <Route path="/admin" element={<NewAdmin />} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>
