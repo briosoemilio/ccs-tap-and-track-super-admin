@@ -27,8 +27,8 @@ const NavBar = () => {
                 </NavLink>
               </li> */}
               <li>
-                <NavLink to="/new-admin" className={"text-white"}>
-                  New Admin
+                <NavLink to="/admin" className={"text-white"}>
+                  Admin
                 </NavLink>
               </li>
               <li>
