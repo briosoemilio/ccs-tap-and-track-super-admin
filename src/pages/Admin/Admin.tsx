@@ -19,7 +19,9 @@ const Admin = () => {
   return (
     <ScreenContainer>
       <div className="w-full">
-        <p className="text-2xl">Hello admin: {user?.name}! How can I help you today?</p>
+        <p className="text-2xl">
+          Hello admin: {user?.name}! How can I help you today?
+        </p>
         <div className="flex justify-between my-10">
           <h1>Admin List</h1>
           <div className="flex gap-5">
