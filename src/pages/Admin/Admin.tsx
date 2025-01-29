@@ -9,6 +9,7 @@ import ResetPWModal from "./components/ResetPWModal";
 import { UserDetails } from "../../lib/service/students/types";
 import { getStudent } from "../../lib/service/students/getStudent";
 import CreateAdminModal from "./components/CreateAdminModal";
+import ArchiveModal from "../../components/ArchiveUser/ArchiveModal";
 
 const Admin = () => {
   const { user } = useAuth();
@@ -80,6 +81,7 @@ const Admin = () => {
         showNote={showNote}
       />
       <CreateAdminModal />
+      <ArchiveModal user={selectedAdmin as UserDetails} />
     </ScreenContainer>
   );
 };

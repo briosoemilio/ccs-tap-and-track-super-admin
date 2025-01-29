@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { UserDetails } from "../../../lib/service/students/types";
 import { isEmpty } from "lodash";
+import ArchiveUser from "../../../components/ArchiveUser/ArchiveUser";
+import { format } from "date-fns";
 
 const AdminList = (props: {
   adminList: UserDetails[];
@@ -48,6 +50,7 @@ const AdminList = (props: {
               <th>Name</th>
               <th>Created At</th>
               <th>Updated At</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -64,8 +67,18 @@ const AdminList = (props: {
                 <th>{admin?.uuid}</th>
                 <th>{admin?.email}</th>
                 <td>{admin?.name}</td>
-                <td>{admin?.createdAt}</td>
-                <td>{admin?.updatedAt}</td>
+                <td>
+                  {format(new Date(admin?.createdAt), "MMMM d, yyyy h:mma")}
+                </td>
+                <td>
+                  {format(new Date(admin?.updatedAt), "MMMM d, yyyy h:mma")}
+                </td>
+                <td>
+                  <ArchiveUser
+                    user={admin}
+                    onClick={() => setSelectedAdmin(admin)}
+                  />
+                </td>
                 <td>
                   <button
                     className="bg-red-600 z-10"

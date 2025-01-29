@@ -9,6 +9,8 @@ import FormTextField from "../../../components/TextField/FormTextField";
 import { updateStudent } from "../../../lib/service/students/updateStudent";
 import { updateStudentErrHandler } from "../utils";
 import Loader from "../../../components/Loader/Loader";
+import ArchiveUser from "../../../components/ArchiveUser/ArchiveUser";
+import ArchiveModal from "../../../components/ArchiveUser/ArchiveModal";
 
 const StudentList = (props: {
   studentList: UserDetails[];
@@ -53,6 +55,7 @@ const StudentList = (props: {
               <th>YearSection</th>
               <th>ID Number</th>
               <th>Is Logged In</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -72,6 +75,12 @@ const StudentList = (props: {
                 <td>{student?.yearSection}</td>
                 <td>{student?.idNumber}</td>
                 <td>{student?.isLogged ? "Yes" : "No"}</td>
+                <td>
+                  <ArchiveUser
+                    user={student}
+                    onClick={() => setSelectedStudent(student)}
+                  />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -108,6 +117,7 @@ const StudentList = (props: {
       </div>
       <EditStudentModal student={selectedStudent} />
       <EditSuccessModal />
+      <ArchiveModal user={selectedStudent as UserDetails} />
     </>
   );
 };

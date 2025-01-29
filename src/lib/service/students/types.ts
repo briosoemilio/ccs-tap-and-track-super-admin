@@ -28,6 +28,7 @@ export interface UserDetails {
   createdAt: Date;
   updatedAt: Date;
   isLogged: boolean;
+  isArchived: boolean;
 }
 
 export interface ChangeSectionRes {
