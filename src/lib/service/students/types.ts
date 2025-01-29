@@ -60,8 +60,8 @@ export interface RegisterRes {
 export interface UpdateUserReq {
   email: string;
   name: string;
-  yearSection: string;
-  idNumber: string;
+  yearSection?: string;
+  idNumber?: string;
   id: number;
 }
 
