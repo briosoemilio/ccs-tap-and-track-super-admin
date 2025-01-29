@@ -6,6 +6,7 @@ import Loader from "../../components/Loader/Loader";
 import { FormProvider, useForm } from "react-hook-form";
 import FormTextField from "../../components/TextField/FormTextField";
 import { NavLink } from "react-router-dom";
+import AddStudentModal from "./components/AddStudentModal";
 
 const Students = () => {
   const formMethods = useForm<{ identifier: string }>();
@@ -39,14 +40,15 @@ const Students = () => {
     }
   };
 
+  const openCreateStudentModal = () =>
+    document?.getElementById("add_student")?.showModal?.();
+
   return (
     <ScreenContainer>
       <div className="w-full">
         <div className="flex justify-between">
           <h1>Students List</h1>
-          <NavLink to="/add-student">
-            <button>CREATE NEW STUDENT</button>
-          </NavLink>
+          <button onClick={openCreateStudentModal}>CREATE NEW STUDENT</button>
         </div>
         <FormProvider {...formMethods}>
           <div className="flex items-center">
@@ -78,8 +80,8 @@ const Students = () => {
       </div>
       <div className="mt-5 mb-5">
         <div className="font-bold">NOTE: </div>
-        Search only works with id number or uuid. Name is not unique and cannot
-        be used as a search parameter.
+        Search only works with id number, email, or uuid. Name is not unique and
+        cannot be used as a search parameter.
       </div>
       <StudentList
         studentList={studentList}
@@ -91,6 +93,7 @@ const Students = () => {
         page={page}
         itemsPerPage={itemsPerPage}
       />
+      <AddStudentModal />
     </ScreenContainer>
   );
 };
