@@ -1,9 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { UserDetails } from "../../../lib/service/students/types";
 import { isEmpty } from "lodash";
-import EditAdminModal from "./EditAdminModal";
-import EditSuccessModal from "./EditSuccessModal";
-import ResetPWModal from "./ResetPWModal";
 
 const AdminList = (props: {
   adminList: UserDetails[];
@@ -14,6 +11,10 @@ const AdminList = (props: {
   totalItems: number;
   page: number;
   itemsPerPage: number;
+  setSelectedAdmin: React.Dispatch<
+    React.SetStateAction<UserDetails | undefined>
+  >;
+  setShowNote: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const {
     adminList,
@@ -24,6 +25,8 @@ const AdminList = (props: {
     totalItems,
     page: currentPage,
     itemsPerPage,
+    setSelectedAdmin,
+    setShowNote,
   } = props;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -31,8 +34,6 @@ const AdminList = (props: {
     if (!isEmpty(filteredAdminList)) return filteredAdminList;
     return adminList;
   }, [filteredAdminList, adminList]);
-
-  const [selectedAdmin, setSelectedAdmin] = useState<UserDetails>();
 
   return (
     <>
@@ -71,6 +72,7 @@ const AdminList = (props: {
                     onClick={(event) => {
                       event.stopPropagation();
                       setSelectedAdmin(admin);
+                      setShowNote(true);
                       document?.getElementById("admin_reset_pw").showModal();
                     }}
                   >
@@ -111,9 +113,6 @@ const AdminList = (props: {
           </button>
         </div>
       </div>
-      <EditAdminModal admin={selectedAdmin} />
-      <EditSuccessModal />
-      <ResetPWModal adminIdentifier={selectedAdmin?.uuid as string} />
     </>
   );
 };

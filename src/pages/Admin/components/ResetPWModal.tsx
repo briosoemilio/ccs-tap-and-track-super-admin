@@ -9,8 +9,11 @@ export type ResetPwForm = {
   confirmPassword: string;
 };
 
-const ResetPWModal = (props: { adminIdentifier: string }) => {
-  const { adminIdentifier } = props;
+const ResetPWModal = (props: {
+  adminIdentifier: string;
+  showNote?: boolean;
+}) => {
+  const { adminIdentifier, showNote = true } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [agree, setAgree] = useState(false);
   const formMethods = useForm<ResetPwForm>();
@@ -67,26 +70,28 @@ const ResetPWModal = (props: { adminIdentifier: string }) => {
               }}
               required
             />
-            <div>
-              <p className="-mt-5 mb-5">
-                <span className="font-bold">NOTE: </span> This will override the
-                current password of the admin account. Are you sure you'd like
-                to continue?
-              </p>
-              <div className="flex items-center gap-5 mb-5">
-                <input
-                  type="checkbox"
-                  checked={agree}
-                  onChange={(e) => setAgree(e.target.checked)}
-                  className="checkbox"
-                />{" "}
-                <span>I agree to override the admin's password.</span>
+            {showNote && (
+              <div>
+                <p className="-mt-5 mb-5">
+                  <span className="font-bold">NOTE: </span> This will override
+                  the current password of the admin account. Are you sure you'd
+                  like to continue?
+                </p>
+                <div className="flex items-center gap-5 mb-5">
+                  <input
+                    type="checkbox"
+                    checked={agree}
+                    onChange={(e) => setAgree(e.target.checked)}
+                    className="checkbox"
+                  />{" "}
+                  <span>I agree to override the admin's password.</span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div className="flex flex-row gap-5">
             <button
-              disabled={!agree}
+              disabled={!showNote ? false : !agree}
               className="flex-1 bg-blue-500 disabled:bg-slate-500"
               onClick={handleSubmit(onPressChange)}
             >
