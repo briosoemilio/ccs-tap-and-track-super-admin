@@ -11,6 +11,8 @@ import { updateStudentErrHandler } from "../utils";
 import Loader from "../../../components/Loader/Loader";
 import ArchiveUser from "../../../components/ArchiveUser/ArchiveUser";
 import ArchiveModal from "../../../components/ArchiveUser/ArchiveModal";
+import LostCard from "./LostCard";
+import ResetKeycardModal from "./ResetKeycardModal";
 
 const StudentList = (props: {
   studentList: UserDetails[];
@@ -81,6 +83,11 @@ const StudentList = (props: {
                     onClick={() => setSelectedStudent(student)}
                   />
                 </td>
+                <td>
+                  {student?.cardKey && (
+                    <LostCard onClick={() => setSelectedStudent(student)} />
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -118,6 +125,7 @@ const StudentList = (props: {
       <EditStudentModal student={selectedStudent} />
       <EditSuccessModal />
       <ArchiveModal user={selectedStudent as UserDetails} />
+      <ResetKeycardModal user={selectedStudent as UserDetails} />
     </>
   );
 };

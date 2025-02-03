@@ -29,6 +29,7 @@ export interface UserDetails {
   updatedAt: Date;
   isLogged: boolean;
   isArchived: boolean;
+  cardKey: string;
 }
 
 export interface ChangeSectionRes {
