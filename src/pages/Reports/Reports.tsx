@@ -1,4 +1,3 @@
-import React from "react";
 import ScreenContainer from "../../components/ScreenContainer/ScreenContainer";
 
 const Reports = () => {

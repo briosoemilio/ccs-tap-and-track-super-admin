@@ -1,4 +1,3 @@
-import React from "react";
 import { useAuth } from "../../lib/context/AuthenticatedContext";
 import { NavLink, useNavigate } from "react-router-dom";
 

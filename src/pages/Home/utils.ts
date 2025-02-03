@@ -5,6 +5,7 @@ export const loginErrHandler = (
   err: unknown,
   setError: UseFormSetError<LoginFormData>
 ) => {
+  if (err instanceof Error === false) return;
   if (err?.message?.includes("Wrong password")) {
     setError("password", { message: "Incorrect password" });
     return;

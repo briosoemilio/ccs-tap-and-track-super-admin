@@ -1,4 +1,3 @@
-import React from "react";
 import { UserDetails } from "../../lib/service/students/types";
 
 const ArchiveUser = (props: { user: UserDetails; onClick: () => void }) => {
