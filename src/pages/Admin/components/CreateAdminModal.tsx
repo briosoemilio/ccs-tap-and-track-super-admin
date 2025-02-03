@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import FormTextField from "../../../components/TextField/FormTextField";
 import { createStudent } from "../../../lib/service/students/createStudent";
@@ -25,10 +25,19 @@ const CreateAdminModal = () => {
     "Super admin accounts use the CCS Tap and Track Web App to manage account creation, as well as resetting of passwords.";
 
   // Functions
-  const closeAddModal = () => document?.getElementById("add_admin")?.close?.();
+  const closeAddModal = () => {
+    const modal = document?.getElementById("add_admin");
+    if (modal instanceof HTMLDialogElement) {
+      modal.close();
+    }
+  };
 
-  const openSuccessModal = () =>
-    document?.getElementById("add_admin_success")?.showModal?.();
+  const openSuccessModal = () => {
+    const modal = document?.getElementById("add_admin_success");
+    if (modal instanceof HTMLDialogElement) {
+      modal.showModal();
+    }
+  };
 
   const onPressCreate = async (data: AddAdminForm) => {
     setIsLoading(true);
@@ -53,6 +62,7 @@ const CreateAdminModal = () => {
         openSuccessModal();
       }
     } catch (err) {
+      if (err instanceof Error === false) return;
       addStudentErrHandler(err, setError);
       console.log("Error", err?.message);
     } finally {
@@ -156,6 +166,12 @@ const CreateAdminModal = () => {
 };
 
 const AddSuccessModal = () => {
+  const closeSuccessModal = () => {
+    const modal = document.getElementById("add_admin_success");
+    if (modal instanceof HTMLDialogElement) {
+      modal.close();
+    }
+  };
   return (
     <dialog id="add_admin_success" className="modal">
       <div className="modal-box">
@@ -165,7 +181,7 @@ const AddSuccessModal = () => {
           <button
             className="flex-1 bg-red-500"
             onClick={() => {
-              document?.getElementById("add_admin_success").close();
+              closeSuccessModal();
               location.reload();
             }}
           >

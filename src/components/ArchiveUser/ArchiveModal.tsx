@@ -1,4 +1,3 @@
-import React from "react";
 import { UserDetails } from "../../lib/service/students/types";
 import { unarchiveUser } from "../../lib/service/user/unarchiveUser";
 import { archiveUser } from "../../lib/service/user/archiveUser";
@@ -7,9 +6,19 @@ const ArchiveModal = (props: { user: UserDetails }) => {
   const { user } = props;
   const isArchived = user?.isArchived;
 
-  const closeModal = () => document?.getElementById("archive_modal").close();
-  const showSuccessModal = () =>
-    document?.getElementById("edit_success").showModal();
+  const closeModal = () => {
+    const modal = document?.getElementById("archive_modal");
+    if (modal instanceof HTMLDialogElement) {
+      modal.close();
+    }
+  };
+
+  const showSuccessModal = () => {
+    const modal = document?.getElementById("edit_success");
+    if (modal instanceof HTMLDialogElement) {
+      modal.showModal();
+    }
+  };
 
   const toggleArchive = async () => {
     if (isArchived) {
@@ -52,12 +61,7 @@ const ArchiveModal = (props: { user: UserDetails }) => {
               ARCHIVE USER
             </button>
           )}
-          <button
-            className="flex-1"
-            onClick={() => {
-              document?.getElementById("archive_modal").close();
-            }}
-          >
+          <button className="flex-1" onClick={closeModal}>
             CLOSE
           </button>
         </div>

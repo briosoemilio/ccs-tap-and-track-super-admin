@@ -4,7 +4,12 @@ import { UserDetails } from "../../lib/service/students/types";
 const ArchiveUser = (props: { user: UserDetails; onClick: () => void }) => {
   const { user, onClick } = props;
   const isArchived = user?.isArchived;
-  const showModal = () => document?.getElementById("archive_modal").showModal();
+  const showModal = () => {
+    const modal = document?.getElementById("archive_modal");
+    if (modal instanceof HTMLDialogElement) {
+      modal.showModal();
+    }
+  };
 
   return (
     <button

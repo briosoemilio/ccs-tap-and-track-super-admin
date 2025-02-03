@@ -1,6 +1,10 @@
-import React from "react";
-
 const EditSuccessModal = () => {
+  const closeModal = () => {
+    const modal = document?.getElementById("edit_success");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.close();
+  };
+
   return (
     <dialog id="edit_success" className="modal">
       <div className="modal-box">
@@ -10,7 +14,7 @@ const EditSuccessModal = () => {
           <button
             className="flex-1 bg-red-500"
             onClick={() => {
-              document?.getElementById("edit_success").close();
+              closeModal();
               location.reload();
             }}
           >

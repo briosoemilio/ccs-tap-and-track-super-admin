@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { UserDetails } from "../../../lib/service/students/types";
 import { isEmpty } from "lodash";
 import ArchiveUser from "../../../components/ArchiveUser/ArchiveUser";
@@ -37,6 +37,13 @@ const AdminList = (props: {
     return adminList;
   }, [filteredAdminList, adminList]);
 
+  const showModal = (modalName: string) => {
+    const modal = document?.getElementById(modalName);
+    if (modal instanceof HTMLDialogElement) {
+      modal.showModal();
+    }
+  };
+
   return (
     <>
       <div className="overflow-x-auto w-full">
@@ -60,7 +67,7 @@ const AdminList = (props: {
                 className="hover:bg-slate-500 hover:cursor-pointer"
                 onClick={() => {
                   setSelectedAdmin(admin);
-                  document?.getElementById("update_admin").showModal();
+                  showModal("update_admin");
                 }}
               >
                 <th>{index + 1}</th>
@@ -86,7 +93,7 @@ const AdminList = (props: {
                       event.stopPropagation();
                       setSelectedAdmin(admin);
                       setShowNote(true);
-                      document?.getElementById("admin_reset_pw").showModal();
+                      showModal("admin_reset_pw");
                     }}
                   >
                     RESET PASSWORD

@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ScreenContainer from "../../components/ScreenContainer/ScreenContainer";
 import StudentList from "./components/StudentList";
 import { useFetchStudents } from "./useFetchStudents";
 import Loader from "../../components/Loader/Loader";
 import { FormProvider, useForm } from "react-hook-form";
 import FormTextField from "../../components/TextField/FormTextField";
-import { NavLink } from "react-router-dom";
 import AddStudentModal from "./components/AddStudentModal";
 
 const Students = () => {
@@ -28,8 +27,8 @@ const Students = () => {
     setIsLoading(true);
     try {
       await searchStudent(data.identifier);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err: any) {
+    } catch (err) {
+      if (err instanceof Error === false) return;
       if (err?.message.includes("not found")) {
         setError("identifier", {
           message: "User not found, please check identifier",
@@ -40,8 +39,11 @@ const Students = () => {
     }
   };
 
-  const openCreateStudentModal = () =>
-    document?.getElementById("add_student")?.showModal?.();
+  const openCreateStudentModal = () => {
+    const modal = document?.getElementById("add_student");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.showModal();
+  };
 
   return (
     <ScreenContainer>

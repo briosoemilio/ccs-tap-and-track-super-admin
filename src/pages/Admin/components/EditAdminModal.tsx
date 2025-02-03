@@ -27,11 +27,24 @@ const EditAdminModal = (props: { admin?: UserDetails }) => {
     setInitialState(admin);
     setValue("name", admin?.name);
     setValue("email", admin?.email || "");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [admin]);
 
   const isModified =
     initialState?.name !== watchedValues.name ||
     initialState?.email !== watchedValues.email;
+
+  const showEditSuccessModal = () => {
+    const modal = document?.getElementById("edit_success");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.showModal();
+  };
+
+  const closeUpdateAdminModal = () => {
+    const modal = document?.getElementById("update_admin");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.close();
+  };
 
   const onSubmit = async (data: EditAdminForm) => {
     try {
@@ -42,11 +55,12 @@ const EditAdminModal = (props: { admin?: UserDetails }) => {
       } as UpdateUserReq;
       const res = await updateStudent(reqBody);
       if (res.statusCode === 200) {
-        document?.getElementById("edit_success").showModal();
-        document?.getElementById("update_admin").close();
+        showEditSuccessModal();
+        closeUpdateAdminModal();
       }
     } catch (err) {
       updateStudentErrHandler(err, setError);
+      if (err instanceof Error === false) return;
       console.log("Error on edit admin : ", err?.message);
     } finally {
       setisLoading(false);
@@ -71,9 +85,7 @@ const EditAdminModal = (props: { admin?: UserDetails }) => {
             </button>
             <button
               className="flex-1 bg-red-500"
-              onClick={() => {
-                document?.getElementById("update_admin").close();
-              }}
+              onClick={() => closeUpdateAdminModal()}
             >
               CLOSE
             </button>

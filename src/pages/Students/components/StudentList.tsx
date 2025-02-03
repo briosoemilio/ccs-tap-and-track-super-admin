@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { isEmpty } from "lodash";
 import {
   UpdateUserReq,
@@ -43,6 +43,12 @@ const StudentList = (props: {
 
   const [selectedStudent, setSelectedStudent] = useState<UserDetails>();
 
+  const showUpdateStudentModal = () => {
+    const modal = document?.getElementById("update_student");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.showModal();
+  };
+
   return (
     <>
       <div className="overflow-x-auto w-full">
@@ -67,7 +73,7 @@ const StudentList = (props: {
                 className="hover:bg-slate-500 hover:cursor-pointer"
                 onClick={() => {
                   setSelectedStudent(student);
-                  document?.getElementById("update_student").showModal();
+                  showUpdateStudentModal();
                 }}
               >
                 <th>{index + 1}</th>
@@ -152,6 +158,7 @@ const EditStudentModal = (props: { student?: UserDetails }) => {
     setValue("yearSection", student?.yearSection || "");
     setValue("idNumber", student?.idNumber || "");
     setValue("email", student?.email || "");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [student]);
 
   const isModified =
@@ -159,6 +166,18 @@ const EditStudentModal = (props: { student?: UserDetails }) => {
     initialState?.yearSection !== watchedValues.yearSection ||
     initialState?.idNumber !== watchedValues.idNumber ||
     initialState?.email !== watchedValues.email;
+
+  const showEditSuccessModal = () => {
+    const modal = document?.getElementById("edit_success");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.showModal();
+  };
+
+  const closeUpdateStudentModal = () => {
+    const modal = document?.getElementById("update_student");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.close();
+  };
 
   const onSubmit = async (data: EditStudentForm) => {
     try {
@@ -169,11 +188,12 @@ const EditStudentModal = (props: { student?: UserDetails }) => {
       } as UpdateUserReq;
       const res = await updateStudent(reqBody);
       if (res.statusCode === 200) {
-        document?.getElementById("edit_success").showModal();
-        document?.getElementById("update_student").close();
+        showEditSuccessModal();
+        closeUpdateStudentModal();
       }
     } catch (err) {
       updateStudentErrHandler(err, setError);
+      if (err instanceof Error === false) return;
       console.log("Error on edit student : ", err?.message);
     } finally {
       setisLoading(false);
@@ -201,7 +221,7 @@ const EditStudentModal = (props: { student?: UserDetails }) => {
             <button
               className="flex-1 bg-red-500"
               onClick={() => {
-                document?.getElementById("update_student").close();
+                closeUpdateStudentModal();
               }}
             >
               CLOSE
@@ -214,6 +234,11 @@ const EditStudentModal = (props: { student?: UserDetails }) => {
 };
 
 const EditSuccessModal = () => {
+  const closeModal = () => {
+    const modal = document?.getElementById("edit_success");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.close();
+  };
   return (
     <dialog id="edit_success" className="modal">
       <div className="modal-box">
@@ -223,7 +248,7 @@ const EditSuccessModal = () => {
           <button
             className="flex-1 bg-red-500"
             onClick={() => {
-              document?.getElementById("edit_success").close();
+              closeModal();
               location.reload();
             }}
           >

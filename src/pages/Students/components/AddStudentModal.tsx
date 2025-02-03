@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import FormTextField from "../../../components/TextField/FormTextField";
 import { createStudent } from "../../../lib/service/students/createStudent";
@@ -22,11 +22,17 @@ const AddStudentModal = () => {
   const { handleSubmit, setError } = formMethods;
 
   // Functions
-  const closeAddModal = () =>
-    document?.getElementById("add_student")?.close?.();
+  const closeAddModal = () => {
+    const modal = document?.getElementById("add_student");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.close();
+  };
 
-  const openSuccessModal = () =>
-    document?.getElementById("add_success")?.showModal?.();
+  const openSuccessModal = () => {
+    const modal = document?.getElementById("add_success");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.showModal();
+  };
 
   const onPressCreate = async (data: AddStudentForm) => {
     setIsLoading(true);
@@ -46,6 +52,7 @@ const AddStudentModal = () => {
         openSuccessModal();
       }
     } catch (err) {
+      if (err instanceof Error === false) return;
       addStudentErrHandler(err, setError);
       console.log("Error", err?.message);
     } finally {
@@ -128,6 +135,11 @@ const AddStudentModal = () => {
 };
 
 const AddSuccessModal = () => {
+  const openSuccessModal = () => {
+    const modal = document?.getElementById("add_success");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.showModal();
+  };
   return (
     <dialog id="add_success" className="modal">
       <div className="modal-box">
@@ -137,7 +149,7 @@ const AddSuccessModal = () => {
           <button
             className="flex-1 bg-red-500"
             onClick={() => {
-              document?.getElementById("add_success").close();
+              openSuccessModal();
               location.reload();
             }}
           >

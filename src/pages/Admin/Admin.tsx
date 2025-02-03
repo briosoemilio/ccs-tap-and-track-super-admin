@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ScreenContainer from "../../components/ScreenContainer/ScreenContainer";
 import { useAuth } from "../../lib/context/AuthenticatedContext";
 import AdminList from "./components/AdminList";
@@ -29,14 +29,21 @@ const Admin = () => {
   const onClickEdit = async () => {
     const _user = await getStudent(user?.uuid as string);
     setSelectedAdmin(_user.data as unknown as UserDetails);
-    document?.getElementById("update_admin").showModal();
+    showModal("update_admin");
   };
 
   const onClickReset = async () => {
     const _user = await getStudent(user?.uuid as string);
     setSelectedAdmin(_user.data as unknown as UserDetails);
     setShowNote(false);
-    document?.getElementById("admin_reset_pw").showModal();
+    showModal("admin_reset_pw");
+  };
+
+  const showModal = (modalName: string) => {
+    const modal = document?.getElementById(modalName);
+    if (modal instanceof HTMLDialogElement) {
+      modal.showModal();
+    }
   };
 
   return (
@@ -48,11 +55,7 @@ const Admin = () => {
         <div className="flex justify-between my-10">
           <h1>Admin List</h1>
           <div className="flex gap-5">
-            <button
-              onClick={() => {
-                document?.getElementById("add_admin")?.showModal?.();
-              }}
-            >
+            <button onClick={() => showModal("add_admin")}>
               Create Admin Account
             </button>
             <button onClick={onClickEdit}>Edit Account</button>

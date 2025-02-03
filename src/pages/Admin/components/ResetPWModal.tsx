@@ -19,6 +19,18 @@ const ResetPWModal = (props: {
   const formMethods = useForm<ResetPwForm>();
   const { handleSubmit, setError } = formMethods;
 
+  const closeAdminResetModal = () => {
+    const modal = document?.getElementById("admin_reset_pw");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.close();
+  };
+
+  const showEditSuccessModal = () => {
+    const modal = document?.getElementById("edit_success");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.showModal();
+  };
+
   const onPressChange = async (data: ResetPwForm) => {
     console.log("pressed", data);
     const { password, confirmPassword } = data;
@@ -35,8 +47,8 @@ const ResetPWModal = (props: {
         confirmPassword
       );
       if (res) {
-        document?.getElementById("admin_reset_pw").close();
-        document?.getElementById("edit_success").showModal();
+        closeAdminResetModal();
+        showEditSuccessModal();
       }
     } catch (err) {
       console.log("Err", err);
@@ -101,7 +113,7 @@ const ResetPWModal = (props: {
             <button
               className="flex-1 bg-red-500"
               onClick={() => {
-                document?.getElementById("admin_reset_pw").close();
+                closeAdminResetModal();
                 location.reload();
               }}
             >

@@ -6,6 +6,7 @@ export const updateStudentErrHandler = (
   err: unknown,
   setError: UseFormSetError<EditStudentForm>
 ) => {
+  if (err instanceof Error === false) return;
   if (err?.message?.includes("email")) {
     setError("email", { message: "Email already used." });
     return;
@@ -27,6 +28,7 @@ export const addStudentErrHandler = (
   err: unknown,
   setError: UseFormSetError<AddStudentForm>
 ) => {
+  if (err instanceof Error === false) return;
   if (err?.message?.includes("Email already used")) {
     setError("email", { message: "Email already used." });
     return;

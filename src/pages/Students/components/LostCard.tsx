@@ -1,9 +1,10 @@
-import React from "react";
-
 const LostCard = (props: { onClick: () => void }) => {
   const { onClick } = props;
-  const showModal = () => document?.getElementById("reset_modal").showModal();
-
+  const showModal = () => {
+    const modal = document?.getElementById("reset_modal");
+    if (modal instanceof HTMLDialogElement === false) return;
+    modal.showModal();
+  };
   return (
     <button
       className="bg-red-600"
